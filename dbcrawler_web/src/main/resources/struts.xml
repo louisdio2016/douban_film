@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<constant name="struts.ui.theme" value="simple"/>
+	<constant name="struts.devMode" value="true" />
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+
+	<package name="default" namespace="/" extends="json-default">
+	<interceptors>
+		   <interceptor-stack name="myStack">
+			    <interceptor-ref name="json">
+			    	<param name="enableSMD">true</param>
+			    </interceptor-ref>
+		    	<interceptor-ref name="defaultStack" />
+		   </interceptor-stack>
+	</interceptors>
+    <default-interceptor-ref name="myStack" />
+    
+		<global-results>
+			<result name="error">/WEB-INF/pages/error.jsp</result>
+			<result name="sysException">/WEB-INF/pages/error.jsp</result>
+		</global-results>
+		<global-exception-mappings>
+			<exception-mapping result="error" exception="java.lang.Exception"></exception-mapping>
+			<exception-mapping result="sysException" exception="cn.itcast.jk.exception.SysException"></exception-mapping>
+		</global-exception-mappings>
+		
+		<action name="filmAction_*" method="{1}" class="filmAction">
+			<result name="showPage">/WEB-INF/pages/film/jFilmList.jsp</result>
+			<result name="showSearch">/WEB-INF/pages/film/jFilmList.jsp</result>
+			<result name="showAll">/WEB-INF/pages/film/jAllFilmList.jsp</result>
+		</action>
+		
+	</package>
+</struts>
+	
